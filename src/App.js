@@ -4,10 +4,10 @@ import Header from './components/layout/Header';
 import Todos from './components/Todos';
 import AddTodo from './components/AddTodo';
 import About from './components/pages/About';
-import {v4 as uuid} from 'uuid';
+
+import axios from 'axios';
 
 import './App.css';
-import axios from 'axios';
 
 class App extends Component {
   state = {
@@ -33,18 +33,22 @@ class App extends Component {
 
   // Delete Todo
   delTodo = (id) => {
+    axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+      .then(res => this.setState((state) => ({
+        todos: state.todos.filter(todo => todo.id !== id)
+      })));
     //this.setState({ todos: this.state.todos.filter(todo => todo.id !== id)});
-    this.setState((state) => ({ todos: state.todos.filter(todo => todo.id !== id)}));
   }
 
   // Add Todo
   addTodo = (title) => {
-    const newTodo = {
-      id: uuid(),
+    axios.post('https://jsonplaceholder.typicode.com/todos', {
       title,
       completed: false
-    }
-    this.setState((state) => ({ todos: [...state.todos, newTodo] }))
+    })
+      .then(res => this.setState((state) => ({
+        todos: [...state.todos, res.data]
+      })));
   }
 
   render() {
