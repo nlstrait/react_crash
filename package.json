@@ -2,7 +2,7 @@
   "name": "react_crash",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://nlstrait.github.io/todo",
+  "homepage": "https://nlstrait.github.io/react_crash",
   "dependencies": {
     "ajv": "^6.12.4",
     "axios": "^0.20.0",
